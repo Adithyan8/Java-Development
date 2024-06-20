@@ -36,8 +36,8 @@ class Board
 
     public Board()
     {
-        rows=2;
-        cols=2;
+        rows=6;
+        cols=7;
         freeCols = cols;
 
         board = new char[rows][cols];
