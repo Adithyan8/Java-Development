@@ -36,8 +36,8 @@ class Board
 
     public Board()
     {
-        rows=6;
-        cols=7;
+        rows=2;
+        cols=2;
         freeCols = cols;
 
         board = new char[rows][cols];
@@ -61,6 +61,11 @@ class Board
     int getFreeCols()
     {
         return this.freeCols;
+    }
+
+    void decrementFreeCols()
+    {
+        this.freeCols--;
     }
 
     int[] getCurrentLevel()
@@ -96,6 +101,7 @@ class Board
             else
             {
                 this.decrementCurrentLevel(chosenCol);
+                if(this.getCurrentLevel()[chosenCol] == 0)  this.decrementFreeCols();
                 this.setBoard(currentPlayer,this.getCurrentLevel()[chosenCol],chosenCol);
                 break;
             }
@@ -247,19 +253,20 @@ public class Connect4
         System.out.println("Player 2 details : ");
         player2.getPlayerDetails();
 
-        System.out.println();
+        System.out.println("----------------------------------------");
+        board.displayBoard();
         while(winningPlayer == 0)
         {
             System.out.println("----------------------------------------");
-            board.displayBoard();
 
             int col = board.makeMove(currentPlayer);
             int row = board.getCurrentLevel()[col];
+            //Display the board after the move
+            board.displayBoard();
 
             //CHeck if player won with current move
             if(board.didPlayerWin(currentPlayer,row,col))
             {
-                board.displayBoard();
                 System.out.println("CONGRATULATIONS " + currentPlayer.getName() + " !!!!");
                 System.out.println("YOU WON!!!");
                 return;
